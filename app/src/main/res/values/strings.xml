@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">SpaceDefender</string>
+    <string name="Login_Email">Email</string>
+    <string name="Login_Password">Password</string>
+    <string name="Remember_me">Remember me</string>
+    <string name="Sign_in">Sign in</string>
+    <string name="space_defender">Space Defender</string>
+    <string name="image_background">Space</string>
+    <string name="FB">Continue with Facebook</string>
+    <string name="forgot">Forgot password</string>
+    <string name="newUser">Create Account</string>
+    <string name="Register_Username">Username</string>
+    <string name="Register_Email">Email</string>
+    <string name="Register_Password">Password</string>
+    <string name="Register_txtView">Get ready to the wars</string>
+    <string name="btn_register">Create user</string>
+    <string name="already_user">You have an user</string>
+    <string name="ForgetPass_Email">Forgot Password</string>
+    <string name="email">Email</string>
+    <string name="back">Back to login</string>
+    <string name="submit">Reset password</string>
+    <string name="Welcome">Welcome</string>
+    <string name="score">Your score:</string>
+    <string name="btn_ChangePass">Change password</string>
+    <string name="btn_Cancel">Cancel</string>
+    <string name="btn_UpdatePass">Update password</string>
+    <string name="btnSignOut">Sign out</string>
+    <string name="btn_AddImg">Add Image</string>
+    <string name="btn_mainMenu">Main Menu </string>
+    <string name="new_Password">Enter new password</string>
+    <string name="txtView">Player profile</string>
+    <string name="facebook_app_id">125161452264740</string>
+    <string name="fb_login_protocol_scheme">fb125161452264740</string>
+    <string name="btn_Play">Play</string>
+    <string name="btn_LeaderBoard">LeaderBoard</string>
+    <string name="btn_Setting">Setting</string>
+    <string name="Users">Users</string>
+    <string name="Score">Score</string>
+    <string name="Scoretitle">Scores</string>
+    <string name="btnbacktomenu">Back to menu</string>
+    <string name="share">Share score</string>
+
+
+</resources>

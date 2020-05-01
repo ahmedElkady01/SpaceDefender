@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1092374995119",
+    "firebase_url": "https://spacedefender-4d6be.firebaseio.com",
+    "project_id": "spacedefender-4d6be",
+    "storage_bucket": "spacedefender-4d6be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092374995119:android:5a46e5ee9e929c6aaf745a",
+        "android_client_info": {
+          "package_name": "com.example.spacedefender"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092374995119-vaqi6mvi6ufed2iloh7v6tbeligr55kl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spacedefender",
+            "certificate_hash": "f2c694cb67b66816bab88bdd26e59dde9682da36"
+          }
+        },
+        {
+          "client_id": "1092374995119-icmten009gnhequ2ipqal9mpo01805h0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwgJubt7zm2BPFNawgFQnh8zSmDaE3O28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1092374995119-icmten009gnhequ2ipqal9mpo01805h0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

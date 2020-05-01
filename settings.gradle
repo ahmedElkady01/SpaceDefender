@@ -1,0 +1,2 @@
+include ':app', ':Space_defender-release'
+rootProject.name='SpaceDefender'
