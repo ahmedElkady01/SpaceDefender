@@ -33,7 +33,7 @@
     <string name="fb_login_protocol_scheme">fb125161452264740</string>
     <string name="btn_Play">Play</string>
     <string name="btn_LeaderBoard">LeaderBoard</string>
-    <string name="btn_Setting">Setting</string>
+    <string name="btn_Chat">Chat</string>
     <string name="Users">Users</string>
     <string name="Score">Score</string>
     <string name="Scoretitle">Scores</string>

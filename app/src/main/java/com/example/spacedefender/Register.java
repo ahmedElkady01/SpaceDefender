@@ -94,6 +94,7 @@ public class Register extends FragmentActivity implements View.OnClickListener{
         }
 
             progressBar.setVisibility(View.VISIBLE);
+        final String status = "";
 
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
@@ -107,7 +108,8 @@ public class Register extends FragmentActivity implements View.OnClickListener{
                                         username,
                                         email,
                                         password,
-                                        score
+                                        score,
+                                        status
                                 );
 
                                 FirebaseDatabase.getInstance().getReference("users")

@@ -22,6 +22,13 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+
+
+
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.facebook.android:facebook-share:6.1.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
@@ -34,9 +41,10 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'com.facebook.android:facebook-android-sdk:6.1.0'
     implementation 'com.facebook.android:facebook-core:6.1.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.6'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation project (':Space_defender-release')
+    implementation project(':Space_defender-release')
 }

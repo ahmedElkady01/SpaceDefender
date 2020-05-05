@@ -30,11 +30,10 @@ import com.squareup.picasso.Picasso;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Objects;
 
 public class MainMenu extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnPlayGame, btnLeaderBord, btnSetting, btnSignOut;
+    private Button btnPlayGame, btnLeaderBord, btnChat, btnSignOut;
     private ImageButton imageButton;
     private TextView scoreTxt, welcomeTxt;
     private ProgressBar progressBar;
@@ -62,7 +61,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
         scoreTxt = findViewById(R.id.scoreTxt);
         btnLeaderBord = findViewById(R.id.btnLeaderBord);
         btnPlayGame = findViewById(R.id.btnPlayGame);
-        btnSetting = findViewById(R.id.btnSetting);
+        btnChat = findViewById(R.id.btnChat);
         btnSignOut = findViewById(R.id.btnSignOut);
         userImg = findViewById(R.id.userImg);
 
@@ -72,7 +71,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
 
         btnLeaderBord.setOnClickListener(this);
         btnPlayGame.setOnClickListener(this);
-        btnSetting.setOnClickListener(this);
+        btnChat.setOnClickListener(this);
         btnSignOut.setOnClickListener(this);
         userImg.setOnClickListener(this);
 
@@ -147,8 +146,9 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
         } else if (v.getId() == R.id.btnLeaderBord) {
             // calling the leader bord
             startActivity(new Intent(MainMenu.this, Leaderbord.class));
-        } else if (v.getId() == R.id.btnSetting) {
+        } else if (v.getId() == R.id.btnChat) {
             // calling the game settings
+            startActivity(new Intent(MainMenu.this, ChatActivity.class));
         } else if (v.getId() == R.id.userImg) {
             startActivity(new Intent(MainMenu.this, UserProfile.class));
         }

@@ -197,7 +197,6 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    System.out.println("hloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
                     String username = dataSnapshot.child("username").getValue(String.class);
                     String email = dataSnapshot.child("email").getValue(String.class);
                     int score = dataSnapshot.child("score").getValue(Integer.class);

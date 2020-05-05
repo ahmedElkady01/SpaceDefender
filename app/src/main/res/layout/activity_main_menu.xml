@@ -72,12 +72,12 @@
             android:textSize="15sp" />
 
         <Button
-            android:id="@+id/btnSetting"
+            android:id="@+id/btnChat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="#03A9F4"
-            android:text="@string/btn_Setting"
+            android:text="@string/btn_Chat"
             android:textColor="#DFDADA"
             android:textSize="15sp" />
 

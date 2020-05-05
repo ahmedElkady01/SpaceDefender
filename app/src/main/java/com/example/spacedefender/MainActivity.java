@@ -300,7 +300,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (task.isSuccessful()) {
                     String password = "null";
                     int score = 0;
-                    User newUser = new User(username, email, password,score);
+                    String status = "online";
+                    User newUser = new User(username, email, password,score,status);
                     FirebaseDatabase.getInstance().getReference("users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {

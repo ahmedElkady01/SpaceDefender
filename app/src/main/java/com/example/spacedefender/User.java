@@ -7,21 +7,30 @@ public class User implements Serializable {
     private String email;
     private String password;
     private int score;
+    private String status;
 
 
 
     public User() {
     }
 
-    public User(String username,String email, String password, int score) {
+    public User(String username,String email, String password, int score, String status) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.score = score;
+        this.status = status;
 
 
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public int getScore() {
         return score;
