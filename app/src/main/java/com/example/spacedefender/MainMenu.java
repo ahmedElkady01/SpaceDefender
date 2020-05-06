@@ -3,6 +3,7 @@ package com.example.spacedefender;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -51,15 +52,14 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
     private AccessToken token;
     private ImageView userImg;
     private FirebaseUser currentUser;
-    private SharedPreferences prefs;
-    //there are other ways you can get your app context, this is for using in static functions:
-    
+    private SharedPreferences sharedPreferences;
 
-    @Override
+
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
+        sharedPreferences = this.getSharedPreferences("com.example.spacedefender.v2.playerprefs.xml",0);
         welcomeTxt = findViewById(R.id.welcomeTxt);
         scoreTxt = findViewById(R.id.scoreTxt);
         btnLeaderBord = findViewById(R.id.btnLeaderBord);
@@ -122,10 +122,11 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
                     String username = dataSnapshot.child("username").getValue(String.class);
                     String email = dataSnapshot.child("email").getValue(String.class);
                     int score = dataSnapshot.child("score").getValue(Integer.class);
+                    int unityScore = sharedPreferences.getInt("sumHS",score);
 
                     //myUser.setUsername(username);
                     welcomeTxt.setText("Welcome: " + "\n" + username + "\n" + "Your email:" + "\n" + email);
-                    scoreTxt.setText("Your score: " + score);
+                    scoreTxt.setText("Your score: " + unityScore);
                 }
 
                 @Override
@@ -141,8 +142,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
 
         if (v.getId() == R.id.btnPlayGame) {
             //Starting game
-            startActivity(new Intent(MainMenu.this, UnityPlayerActivity.class));
-            //startActivity(new Intent(MainMenu.this, StartGameTransition.class));
+            //startActivity(new Intent(MainMenu.this, UnityPlayerActivity.class));
+            startActivity(new Intent(MainMenu.this, StartGameTransition.class));
         } else if (v.getId() == R.id.btnSignOut) {
             firebaseAuth.signOut();
             LoginManager.getInstance().logOut();
