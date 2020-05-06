@@ -135,9 +135,9 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
 
         if (v.getId() == R.id.btnPlayGame) {
-            Intent intent = new Intent(this, UnityPlayerActivity.class);
-            startActivity(intent);
-
+            //Starting game
+            startActivity(new Intent(MainMenu.this, UnityPlayerActivity.class));
+            //startActivity(new Intent(MainMenu.this, StartGameTransition.class));
         } else if (v.getId() == R.id.btnSignOut) {
             firebaseAuth.signOut();
             LoginManager.getInstance().logOut();
