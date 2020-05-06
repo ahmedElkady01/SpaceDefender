@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -50,7 +51,9 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
     private AccessToken token;
     private ImageView userImg;
     private FirebaseUser currentUser;
-
+    private SharedPreferences prefs;
+    //there are other ways you can get your app context, this is for using in static functions:
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +107,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
         };
 
     }
+
+
 
     public void displayUserInfo() {
         if (currentUser != null) {

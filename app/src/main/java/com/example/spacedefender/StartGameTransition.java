@@ -2,7 +2,10 @@ package com.example.spacedefender;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+
+import com.Company.SpaceDefender.UnityPlayerActivity;
 
 
 public class StartGameTransition extends AppCompatActivity {
@@ -10,8 +13,8 @@ public class StartGameTransition extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_game_transition);
 
+        startActivity(new Intent(this, UnityPlayerActivity.class));
 
     }
 
