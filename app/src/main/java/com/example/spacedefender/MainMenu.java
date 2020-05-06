@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,8 +33,9 @@ import com.squareup.picasso.Picasso;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 
-public class MainMenu extends AppCompatActivity implements View.OnClickListener {
+public class MainMenu extends AppCompatActivity implements View.OnClickListener  {
 
     private Button btnPlayGame, btnLeaderBord, btnChat, btnSignOut;
     private ImageButton imageButton;
@@ -59,7 +61,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        sharedPreferences = this.getSharedPreferences("com.example.spacedefender.v2.playerprefs.xml",0);
+        sharedPreferences =  this.getSharedPreferences(this.getPackageName() + ".v2.playerprefs", Context.MODE_PRIVATE);
         welcomeTxt = findViewById(R.id.welcomeTxt);
         scoreTxt = findViewById(R.id.scoreTxt);
         btnLeaderBord = findViewById(R.id.btnLeaderBord);
@@ -122,11 +124,28 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
                     String username = dataSnapshot.child("username").getValue(String.class);
                     String email = dataSnapshot.child("email").getValue(String.class);
                     int score = dataSnapshot.child("score").getValue(Integer.class);
-                    int unityScore = sharedPreferences.getInt("sumHS",score);
+                    int unityScore = sharedPreferences.getInt("sumHS",score); //get high score saved in unity's high score
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    //logPrefs();  //log all preferences to verify if it works
+
+                    int compare = score > unityScore ? +1 : score < unityScore ? -1 : 0;
+                    int higher;
+                    if (compare == 1){
+                        higher = score;
+                    } else {
+                        higher = unityScore;
+                    }
+
+                    editor.putInt("sumHS",higher);  //set high score in unity
+                    editor.apply();
+
+                    //myRef.child("users").child(userId).child("score").setValue(higher);   //save the highest score in database ?
 
                     //myUser.setUsername(username);
                     welcomeTxt.setText("Welcome: " + "\n" + username + "\n" + "Your email:" + "\n" + email);
-                    scoreTxt.setText("Your score: " + unityScore);
+                    scoreTxt.setText("Your score: " + higher);
                 }
 
                 @Override
@@ -243,6 +262,15 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
             detectUser();
         }else {
             startActivity(new Intent(this,MainActivity.class));
+        }
+    }
+
+    private void logPrefs(){
+        Map<String,?> keys = sharedPreferences.getAll();
+        Log.d("UnityAndroid", "All PlayerPrefs: ");
+        for(Map.Entry<String,?> entry : keys.entrySet()){
+            Log.d("UnityAndroid",entry.getKey() + ": " +
+                    entry.getValue().toString());
         }
     }
 }
