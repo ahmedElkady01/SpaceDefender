@@ -122,21 +122,14 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
 
                     String username = dataSnapshot.child("username").getValue(String.class);
                     String email = dataSnapshot.child("email").getValue(String.class);
-                    int score = dataSnapshot.child("score").getValue(Integer.class);
-                    int unityScore = sharedPreferences.getInt("sumHS",score); //get high score saved in unity's high score
+                    //int score = dataSnapshot.child("score").getValue(Integer.class);
+                    int unityScore = sharedPreferences.getInt("sumHS",0); //get high score saved in unity's high score
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
 
                     //logPrefs();  //log all preferences to verify if it works
 
-                    int compare =  Integer.compare(score,unityScore);
-
-                    int higher;
-                    if (compare == 1){
-                        higher = score;
-                    } else {
-                        higher = unityScore;
-                    }
+                    int higher = getHigherScore(0,unityScore);
 
                     editor.putInt("sumHS",higher);  //set high score in unity
                     editor.apply();
@@ -263,6 +256,18 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
         }else {
             startActivity(new Intent(this,MainActivity.class));
         }
+    }
+
+    private int getHigherScore(int score, int unityScore){
+        int compare =  Integer.compare(score,unityScore);
+
+        int higher;
+        if (compare == 1){
+            higher = score;
+        } else {
+            higher = unityScore;
+        }
+        return higher;
     }
 
     private void logPrefs(){
