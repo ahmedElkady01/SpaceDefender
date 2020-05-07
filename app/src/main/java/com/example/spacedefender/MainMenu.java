@@ -18,7 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.Company.SpaceDefender.UnityPlayerActivity;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -130,7 +129,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
 
                     //logPrefs();  //log all preferences to verify if it works
 
-                    int compare = score > unityScore ? +1 : score < unityScore ? -1 : 0;
+                    int compare =  Integer.compare(score,unityScore);
+
                     int higher;
                     if (compare == 1){
                         higher = score;
