@@ -34,7 +34,7 @@ public class UsersFragment extends Fragment {
     private FirebaseUser currentUser;
     private FirebaseAuth firebaseAuth;
 
-    EditText search_users;
+    private EditText search_users;
 
 
     @Override
@@ -84,7 +84,7 @@ public class UsersFragment extends Fragment {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
-                    User user = snapshot.getValue(User.class);
+                    User user = snapshot.getValue((Class<User>) User.class);
 
                     mUsers.add(user);
 
@@ -112,10 +112,8 @@ public class UsersFragment extends Fragment {
                 if (search_users.getText().toString().equals("")) {
                     mUsers.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        User user = snapshot.getValue(User.class);
-
+                        User user = snapshot.getValue((Class<User>) User.class); // for some reason did not work and had to explicitly cast it
                             mUsers.add(user);
-
                     }
                     userAdapter = new UserAdapter(getContext(), mUsers, false);
                     recyclerView.setAdapter(userAdapter);
