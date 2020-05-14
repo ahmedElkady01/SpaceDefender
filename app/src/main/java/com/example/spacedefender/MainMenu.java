@@ -32,6 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 public class MainMenu extends AppCompatActivity implements View.OnClickListener  {
@@ -122,19 +123,24 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
 
                     String username = dataSnapshot.child("username").getValue(String.class);
                     String email = dataSnapshot.child("email").getValue(String.class);
-                    //int score = dataSnapshot.child("score").getValue(Integer.class);
-                    int unityScore = sharedPreferences.getInt("sumHS",0); //get high score saved in unity's high score
+                    int score = dataSnapshot.child("score").getValue(Integer.class);
+                    int unityScore = sharedPreferences.getInt("sumHS",score); //get high score saved in unity's high score
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
 
                     //logPrefs();  //log all preferences to verify if it works
 
-                    int higher = getHigherScore(0,unityScore);
-
+                    int higher = getHigherScore(score,unityScore);
                     editor.putInt("sumHS",higher);  //set high score in unity
                     editor.apply();
 
-                    //myRef.child("users").child(userId).child("score").setValue(higher);   //save the highest score in database ?
+
+                    Map<String, Object> updateScore = new HashMap<>();  //save score to firebase database
+                    updateScore.put("score", higher);
+                    myRef.updateChildren(updateScore);
+
+
+
 
                     //myUser.setUsername(username);
                     welcomeTxt.setText("Welcome: " + "\n" + username + "\n" + "Your email:" + "\n" + email);
