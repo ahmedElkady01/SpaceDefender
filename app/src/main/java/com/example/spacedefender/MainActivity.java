@@ -242,6 +242,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
+        // call encryption
+       // Optional<String> theEncPassword = Encryption.encryptPassword(password, String.valueOf(generateSalt(512)));
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

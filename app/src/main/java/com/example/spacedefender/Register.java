@@ -22,7 +22,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Register extends FragmentActivity implements View.OnClickListener{
+import java.util.Optional;
+
+import static com.example.spacedefender.Encryption.generateSalt;
+
+public class Register extends FragmentActivity implements View.OnClickListener {
 
     private EditText registerEmail;
     private EditText registerPassword;
@@ -32,8 +36,7 @@ public class Register extends FragmentActivity implements View.OnClickListener{
     private FirebaseAuth firebaseAuth;
     private DatabaseReference mDatabaseReference;
     private FirebaseUser user;
-    private int score=0;
-
+    private int score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,7 @@ public class Register extends FragmentActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
 
-        if(v == btnRegister){
+        if (v == btnRegister) {
             registerUser();
         }
     }
@@ -85,66 +88,63 @@ public class Register extends FragmentActivity implements View.OnClickListener{
             Toast.makeText(this, "Please enter a valid email ", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(password )) {
+        if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
             return;
-        } if (password.length() <6) {
+        }
+        if (password.length() < 6) {
             Toast.makeText(this, "Minimum length of password should be 6", Toast.LENGTH_SHORT).show();
             return;
         }
 
-            progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
         final String status = "";
 
-            firebaseAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
 
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            progressBar.setVisibility(View.GONE);
-                            if (task.isSuccessful()) {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressBar.setVisibility(View.GONE);
+                        if (task.isSuccessful()) {
+                           /* Optional<String> theEncPassword = Encryption.encryptPassword(password, String.valueOf(generateSalt(512)));
+                            if (theEncPassword.isPresent()){
+                                password = String.valueOf(theEncPassword);
+                            }
+                            */
+                            final User users = new User(
+                                    username,
+                                    email,
+                                    password, // calla the encryption here
+                                    score,
+                                    status
+                            );
 
-                                final User users = new User(
-                                        username,
-                                        email,
-                                        password,
-                                        score,
-                                        status
-                                );
+                            FirebaseDatabase.getInstance().getReference("users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
 
-                                FirebaseDatabase.getInstance().getReference("users")
-                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                        .setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(Register.this, "Registered successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(Register.this, MainMenu.class));
 
-                                        Toast.makeText(Register.this, "Registered successfully", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(Register.this,MainMenu.class));
-
-
-                                    }
-                                });
-
-                            } else {
-                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                    Toast.makeText(Register.this, "You are already registered ", Toast.LENGTH_SHORT).show();
-
-                                }else{
-                                    Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_SHORT).show();
 
                                 }
+                            });
+
+                        } else {
+                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                Toast.makeText(Register.this, "You are already registered ", Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+
                             }
                         }
-                    });
-        }
-
-
-
-
-
-
-
-
+                    }
+                });
+    }
 
 
 }
