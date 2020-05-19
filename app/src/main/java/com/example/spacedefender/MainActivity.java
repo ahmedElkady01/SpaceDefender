@@ -242,6 +242,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
+        // call encryption
+       // Optional<String> theEncPassword = Encryption.encryptPassword(password, String.valueOf(generateSalt(512)));
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -334,7 +336,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
            // Toast.makeText(this,"U Signed In successfully",Toast.LENGTH_LONG).show();
             startActivity(new Intent(this,MainMenu.class));
         }else {
-           // Toast.makeText(this,"U Didnt signed in",Toast.LENGTH_LONG).show();
+            // Toast.makeText(this,"U Didnt signed in",Toast.LENGTH_LONG).show();
         }
     }
 
