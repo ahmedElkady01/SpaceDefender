@@ -163,6 +163,9 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
             //startActivity(new Intent(MainMenu.this, UnityPlayerActivity.class));
             startActivity(new Intent(MainMenu.this, StartGameTransition.class));
         } else if (v.getId() == R.id.btnSignOut) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("sumHS",0);
+            editor.apply(); //sets the shared preferences high score to 0, so that if a new player logs in on the same device, the high score isn't added to it.
             firebaseAuth.signOut();
             LoginManager.getInstance().logOut();
             Toast.makeText(MainMenu.this, "Logged out!", Toast.LENGTH_LONG).show();
