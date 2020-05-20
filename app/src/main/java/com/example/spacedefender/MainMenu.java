@@ -3,7 +3,10 @@ package com.example.spacedefender;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -15,7 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.Company.SpaceDefender.UnityPlayerActivity;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,8 +32,10 @@ import com.squareup.picasso.Picasso;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
-public class MainMenu extends AppCompatActivity implements View.OnClickListener {
+public class MainMenu extends AppCompatActivity implements View.OnClickListener  {
 
     private Button btnPlayGame, btnLeaderBord, btnChat, btnSignOut;
     private ImageButton imageButton;
@@ -50,13 +54,14 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
     private AccessToken token;
     private ImageView userImg;
     private FirebaseUser currentUser;
+    private SharedPreferences sharedPreferences;
 
 
-    @Override
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
+        sharedPreferences =  this.getSharedPreferences(this.getPackageName() + ".v2.playerprefs", Context.MODE_PRIVATE);
         welcomeTxt = findViewById(R.id.welcomeTxt);
         scoreTxt = findViewById(R.id.scoreTxt);
         btnLeaderBord = findViewById(R.id.btnLeaderBord);
@@ -105,6 +110,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
 
     }
 
+
+
     public void displayUserInfo() {
         if (currentUser != null) {
             userId = currentUser.getUid();
@@ -117,10 +124,27 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
                     String username = dataSnapshot.child("username").getValue(String.class);
                     String email = dataSnapshot.child("email").getValue(String.class);
                     int score = dataSnapshot.child("score").getValue(Integer.class);
+                    int unityScore = sharedPreferences.getInt("sumHS",score); //get high score saved in unity's high score
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    //logPrefs();  //log all preferences to verify if it works
+
+                    int higher = getHigherScore(score,unityScore);
+                    editor.putInt("sumHS",higher);  //set high score in unity
+                    editor.apply();
+
+
+                    Map<String, Object> updateScore = new HashMap<>();  //save score to firebase database
+                    updateScore.put("score", higher);
+                    myRef.updateChildren(updateScore);
+
+
+
 
                     //myUser.setUsername(username);
                     welcomeTxt.setText("Welcome: " + "\n" + username + "\n" + "Your email:" + "\n" + email);
-                    scoreTxt.setText("Your score: " + score);
+                    scoreTxt.setText("Your score: " + higher);
                 }
 
                 @Override
@@ -135,10 +159,13 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
 
         if (v.getId() == R.id.btnPlayGame) {
-            Intent intent = new Intent(this, UnityPlayerActivity.class);
-            startActivity(intent);
-
+            //Starting game
+            //startActivity(new Intent(MainMenu.this, UnityPlayerActivity.class));
+            startActivity(new Intent(MainMenu.this, StartGameTransition.class));
         } else if (v.getId() == R.id.btnSignOut) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("sumHS",0);
+            editor.apply(); //sets the shared preferences high score to 0, so that if a new player logs in on the same device, the high score isn't added to it.
             firebaseAuth.signOut();
             LoginManager.getInstance().logOut();
             Toast.makeText(MainMenu.this, "Logged out!", Toast.LENGTH_LONG).show();
@@ -237,6 +264,27 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
             detectUser();
         }else {
             startActivity(new Intent(this,MainActivity.class));
+        }
+    }
+
+    private int getHigherScore(int score, int unityScore){
+        int compare =  Integer.compare(score,unityScore);
+
+        int higher;
+        if (compare == 1){
+            higher = score;
+        } else {
+            higher = unityScore;
+        }
+        return higher;
+    }
+
+    private void logPrefs(){
+        Map<String,?> keys = sharedPreferences.getAll();
+        Log.d("UnityAndroid", "All PlayerPrefs: ");
+        for(Map.Entry<String,?> entry : keys.entrySet()){
+            Log.d("UnityAndroid",entry.getKey() + ": " +
+                    entry.getValue().toString());
         }
     }
 }

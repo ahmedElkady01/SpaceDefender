@@ -54,12 +54,13 @@ public class Leaderbord extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                     username = ds.child("username").getValue(String.class);
-                     score = ds.child("score").getValue(Integer.class);
-                    System.out.println(username+"---------------------------------------");
-                    usernameList.add(username);
-                    scoreList.add(score);
+                    username = ds.child("username").getValue(String.class);
+                    if(username != null){  //avoid crash due to null user
+                        score = ds.child("score").getValue(Integer.class);
+                        System.out.println(username+"---------------------------------------");
+                        usernameList.add(username);
+                        scoreList.add(score);
+                    }
                 }
 
                 init();

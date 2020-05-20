@@ -47,6 +47,7 @@
         <activity android:name=".MessageActivity" />
         <activity android:name=".Register" />
         <activity android:name=".ForgotPassword" />
+        <activity android:name=".StartGameTransition"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
