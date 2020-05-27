@@ -22,6 +22,21 @@
         app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeTxt" />
+    <TextView
+        android:id="@+id/countDownTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_marginBottom="76dp"
+        android:hint=""
+        android:textColor="#DFDADA"
+        android:textColorHint="#DFDADA"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scoreTxt" />
 
     <TextView
         android:id="@+id/welcomeTxt"
@@ -38,6 +53,7 @@
         app:layout_constraintHorizontal_bias="0.896"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -60,6 +76,15 @@
             android:text="@string/btn_Play"
             android:textColor="#DFDADA"
             android:textSize="15sp" />
+        <Button
+            android:id="@+id/btnCountTimer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="#03A9F4"
+            android:text="@string/btnCountTimer"
+            android:textColor="#DFDADA"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/btnLeaderBord"
@@ -70,6 +95,11 @@
             android:text="@string/btn_LeaderBoard"
             android:textColor="#DFDADA"
             android:textSize="15sp" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="29dp" />
 
         <Button
             android:id="@+id/btnChat"

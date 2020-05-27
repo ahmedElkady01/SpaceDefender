@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()){
-                    // create new Intent to go to the menue
+                    // create new Intent to go to the menu
                     currnetUser = firebaseAuth.getCurrentUser();
                     updateUI(currnetUser);
 
@@ -262,13 +262,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+
+
     protected void loadUserProfile(final AccessToken accessToken){
         GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
 
-                    String id = object.getString("id");
+                     String id = object.getString("id");
                      String username = object.getString("name");
                      String email = object.getString("email");
 

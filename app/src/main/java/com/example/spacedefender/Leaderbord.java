@@ -42,6 +42,9 @@ public class Leaderbord extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         if (v.getId() == R.id.btnBackToMenu){
             startActivity(new Intent(Leaderbord.this,MainMenu.class));
+
+            CountDownDisplayer.getInstance().startTimer();
+            CountDownDisplayer.getInstance().setContext(this.getApplicationContext());
         }
     }
 
@@ -69,6 +72,7 @@ public class Leaderbord extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
+
         };
         usersdRef.addListenerForSingleValueEvent(eventListener);
 

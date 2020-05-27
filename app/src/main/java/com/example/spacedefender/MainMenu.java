@@ -112,6 +112,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
 
 
 
+
     public void displayUserInfo() {
         if (currentUser != null) {
             userId = currentUser.getUid();
@@ -179,6 +180,12 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
         } else if (v.getId() == R.id.userImg) {
             startActivity(new Intent(MainMenu.this, UserProfile.class));
         }
+      else if (v.getId() == R.id.btnCountTimer) {
+        System.out.println("Button clicked");
+
+        CountDownDisplayer.getInstance().startTimer();
+        CountDownDisplayer.getInstance().setContext(this.getApplicationContext());
+    }
 
     }
 
@@ -240,7 +247,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
             for (UserInfo user : FirebaseAuth.getInstance().getCurrentUser().getProviderData()) {
                 if (user.getProviderId().equals("facebook.com")) {
                     //For linked facebook account
-                    // FB user profile pi
+                    //FB user profile pi
                     token = AccessToken.getCurrentAccessToken();
                     facebookUser = AccessToken.getCurrentAccessToken().getUserId();
                     userProfilePic(facebookUser);
